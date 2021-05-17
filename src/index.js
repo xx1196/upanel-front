@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
+import {ThemeProvider} from "@material-ui/core/styles";
 
 import theme from "assets/theme/theme.js";
 
@@ -14,17 +14,26 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
+//redux
+import {Provider} from "react-redux";
+import generateStore from "./redux/store";
+
+let WithThemeProvider = () => <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-    <CssBaseline />
+    <CssBaseline/>
     <BrowserRouter>
-      <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        <Redirect from="/" to="/admin/index" />
-      </Switch>
+        <Switch>
+            <Route path="/admin" render={(props) => <AdminLayout {...props} />}/>
+            <Route path="/auth" render={(props) => <AuthLayout {...props} />}/>
+            <Redirect from="/" to="/admin/index"/>
+        </Switch>
     </BrowserRouter>
-  </ThemeProvider>,
-  document.querySelector("#root")
+</ThemeProvider>;
+
+let store = generateStore();
+
+let WithProvider = () => <Provider store={store}><WithThemeProvider/></Provider>;
+ReactDOM.render(
+    <WithProvider/>,
+    document.querySelector("#root")
 );
