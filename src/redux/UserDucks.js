@@ -2,7 +2,7 @@ import ApolloClient, {gql} from "apollo-boost";
 
 const initialData = {
     fetching: false,
-    accessToken: null,
+    accessToken: localStorage.getItem("access_token"),
     authUser: {},
     users: []
 }
@@ -45,10 +45,10 @@ export const loginAction = (email, password) => (dispatch, getState) => {
         variables: {email, password}
     })
         .then(({data}) => {
-            let accessToken = data.login.access_token;
-            localStorage.setItem('access_token',accessToken)
+                let accessToken = data.login.access_token;
+                localStorage.setItem('access_token', accessToken)
 
-            dispatch({
+                dispatch({
                     type: LOGIN_USER_SUCCESS,
                     payload: accessToken
                 });

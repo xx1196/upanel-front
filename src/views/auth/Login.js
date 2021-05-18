@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 // @material-ui/core components
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -18,12 +18,19 @@ import Lock from "@material-ui/icons/Lock";
 
 // core components
 import componentStyles from "assets/theme/views/auth/login.js";
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {loginAction} from "../../redux/UserDucks";
+import {withRouter} from "react-router-dom";
 
 const useStyles = makeStyles(componentStyles);
 
-function Login() {
+function Login(props) {
+    useEffect(() => {
+        if (props.access_token) {
+            props.history.push('/admin');
+        }
+    }, [props.access_token]);
+
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -156,7 +163,8 @@ function Login() {
                             }}
                         />
                         <Box textAlign="center" marginTop="1.5rem" marginBottom="1.5rem">
-                            <Button onClick={() => dispatch(loginAction(email, password))} color="primary" variant="contained">
+                            <Button onClick={() => dispatch(loginAction(email, password))} color="primary"
+                                    variant="contained">
                                 Sign in
                             </Button>
                         </Box>
@@ -187,4 +195,10 @@ function Login() {
     );
 }
 
-export default Login;
+function mapState(state) {
+    return {
+        access_token: state.user.accessToken,
+    }
+}
+
+export default withRouter(connect(mapState)(Login));
