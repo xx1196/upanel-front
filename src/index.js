@@ -17,8 +17,6 @@ import AuthLayout from "layouts/Auth.js";
 //redux
 import {Provider} from "react-redux";
 import generateStore from "./redux/store";
-import {ApolloProvider} from "react-apollo";
-import {ApolloClient} from "apollo-boost";
 
 let WithThemeProvider = () => <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -33,15 +31,10 @@ let WithThemeProvider = () => <ThemeProvider theme={theme}>
 </ThemeProvider>;
 
 let store = generateStore();
-let client = new ApolloClient({
-    uri: "http://localhost:8000/graphql"
-});
 
 let WithProvider = () => <Provider store={store}><WithThemeProvider/></Provider>;
 
-let WithApollo = () => <ApolloProvider client={client}><WithProvider/></ApolloProvider>
-
 ReactDOM.render(
-    <WithApollo/>,
+    <WithProvider/>,
     document.querySelector("#root")
 );
