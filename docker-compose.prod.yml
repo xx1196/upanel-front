@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+
+  app-prod:
+    container_name: upanel_front_prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - 80:80
