@@ -8,7 +8,7 @@ const initialData = {
 }
 
 const apolloClient = new ApolloClient({
-    uri: "http://155.138.201.98:8000/graphql"
+    uri: "http://155.138.175.210:8000/graphql"
 });
 
 const LOGIN_USER = "LOGIN_USER";
