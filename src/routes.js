@@ -16,94 +16,115 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import Palette from "@material-ui/icons/Palette";
 import Person from "@material-ui/icons/Person";
 import Tv from "@material-ui/icons/Tv";
+import AllInboxIcon from '@material-ui/icons/AllInbox';
 import VpnKey from "@material-ui/icons/VpnKey";
+import Category from "./views/admin/Categories/Category";
+import CategoryDetail from "./views/admin/Categories/CategoryDetail";
 
 var routes = [
-  {
-    href: "#pablo",
-    name: "Upgrade to pro",
-    icon: FlashOn,
-    upgradeToPro: true,
-  },
-  {
-    path: "/index",
-    name: "Dashboard",
-    icon: Tv,
-    iconColor: "Primary",
-    component: Dashboard,
-    layout: "/admin",
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: Grain,
-    iconColor: "Primary",
-    component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: LocationOn,
-    iconColor: "Warning",
-    component: Maps,
-    layout: "/admin",
-  },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    icon: Person,
-    iconColor: "WarningLight",
-    component: Profile,
-    layout: "/admin",
-  },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: FormatListBulleted,
-    iconColor: "Error",
-    component: Tables,
-    layout: "/admin",
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: VpnKey,
-    iconColor: "Info",
-    component: Login,
-    layout: "/auth",
-  },
-  {
-    path: "/register",
-    name: "Register",
-    icon: AccountCircle,
-    iconColor: "ErrorLight",
-    component: Register,
-    layout: "/auth",
-  },
-  {
-    divider: true,
-  },
-  {
-    title: "Documentation",
-  },
-  {
-    href:
-      "https://www.creative-tim.com/learning-lab/material-ui/overview/argon-dashboard?ref=admui-admin-sidebar",
-    name: "Getting started",
-    icon: FlashOn,
-  },
-  {
-    href:
-      "https://www.creative-tim.com/learning-lab/material-ui/colors/argon-dashboard?ref=admui-admin-sidebar",
-    name: "Foundation",
-    icon: Palette,
-  },
-  {
-    href:
-      "https://www.creative-tim.com/learning-lab/material-ui/alerts/argon-dashboard?ref=admui-admin-sidebar",
-    name: "Components",
-    icon: Dns,
-  },
+    {
+        href: "#pablo",
+        name: "Upgrade to pro",
+        icon: FlashOn,
+        upgradeToPro: true,
+    },
+    {
+        path: "/index",
+        name: "Dashboard",
+        icon: Tv,
+        iconColor: "Primary",
+        component: Dashboard,
+        layout: "/admin",
+    },
+    {
+        path: "/categories",
+        name: "Categorias",
+        icon: AllInboxIcon,
+        iconColor: "Primary",
+        component: Category,
+        layout: "/admin",
+    },
+    {
+        path: "/icons",
+        name: "Icons",
+        icon: Grain,
+        iconColor: "Primary",
+        component: Icons,
+        layout: "/admin",
+    },
+    {
+        path: "/maps",
+        name: "Maps",
+        icon: LocationOn,
+        iconColor: "Warning",
+        component: Maps,
+        layout: "/admin",
+    },
+    {
+        path: "/user-profile",
+        name: "User Profile",
+        icon: Person,
+        iconColor: "WarningLight",
+        component: Profile,
+        layout: "/admin",
+    },
+    {
+        path: "/tables",
+        name: "Tables",
+        icon: FormatListBulleted,
+        iconColor: "Error",
+        component: Tables,
+        layout: "/admin",
+    },
+    {
+        path: "/login",
+        name: "Login",
+        icon: VpnKey,
+        iconColor: "Info",
+        component: Login,
+        layout: "/auth",
+    },
+    {
+        path: "/register",
+        name: "Register",
+        icon: AccountCircle,
+        iconColor: "ErrorLight",
+        component: Register,
+        layout: "/auth",
+    },
+    {
+        divider: true,
+    },
+    {
+        title: "Documentation",
+    },
+    {
+        href:
+            "https://www.creative-tim.com/learning-lab/material-ui/overview/argon-dashboard?ref=admui-admin-sidebar",
+        name: "Getting started",
+        icon: FlashOn,
+    },
+    {
+        href:
+            "https://www.creative-tim.com/learning-lab/material-ui/colors/argon-dashboard?ref=admui-admin-sidebar",
+        name: "Foundation",
+        icon: Palette,
+    },
+    {
+        href:
+            "https://www.creative-tim.com/learning-lab/material-ui/alerts/argon-dashboard?ref=admui-admin-sidebar",
+        name: "Components",
+        icon: Dns,
+    },
 ];
-export default routes;
+var routesHidden = [
+    {
+        path: "/admin/categories/:id",
+        component: CategoryDetail,
+    },
+];
+
+export {
+    routes,
+    routesHidden
+}

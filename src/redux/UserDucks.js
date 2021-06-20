@@ -1,4 +1,5 @@
-import ApolloClient, {gql} from "apollo-boost";
+import {gql} from "apollo-boost";
+import {exportApolloClient} from "../utils/helpers";
 
 const initialData = {
     fetching: false,
@@ -7,9 +8,7 @@ const initialData = {
     users: []
 }
 
-const apolloClient = new ApolloClient({
-    uri: "http://155.138.175.210:8000/graphql"
-});
+const apolloClient = exportApolloClient();
 
 const LOGIN_USER = "LOGIN_USER";
 const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
