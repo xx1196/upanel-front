@@ -334,7 +334,7 @@ const Category = (props) => {
                         component={CardActions}
                         justifyContent="flex-end"
                     >
-                        <Pagination onChange={handleChange} count={pagination.total} color="primary"
+                        <Pagination onChange={handleChange} count={pagination.lastPage} color="primary"
                                     variant="outlined"/>
                     </Box>
                 </Card>
