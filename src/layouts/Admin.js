@@ -17,7 +17,7 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import NavbarDropdown from "components/Dropdowns/NavbarDropdown.js";
 
-import routes from "routes.js";
+import {routes,routesHidden} from "routes.js";
 
 import componentStyles from "assets/theme/layouts/admin.js";
 import {connect} from "react-redux";
@@ -51,6 +51,7 @@ const Admin = (props) => {
             if (prop.layout === "/admin") {
                 return (
                     <Route
+                        exact
                         path={prop.layout + prop.path}
                         component={prop.component}
                         key={key}
@@ -59,6 +60,18 @@ const Admin = (props) => {
             } else {
                 return null;
             }
+        });
+    };
+    const getRoutesHidden = (routes) => {
+        return routes.map((prop, key) => {
+            return (
+                <Route
+                    exact
+                    path={prop.path}
+                    component={prop.component}
+                    key={key}
+                />
+            );
         });
     };
 
@@ -108,6 +121,7 @@ const Admin = (props) => {
                     <AdminNavbar brandText={getBrandText(location.pathname)}/>
                     <Switch>
                         {getRoutes(routes)}
+                        {getRoutesHidden(routesHidden)}
                         <Redirect from="*" to="/admin/index"/>
                     </Switch>
                     <Container
@@ -122,9 +136,11 @@ const Admin = (props) => {
         </>
     );
 };
+
 function mapState(state) {
     return {
         access_token: state.user.accessToken,
     }
 }
+
 export default withRouter(connect(mapState)(Admin));
