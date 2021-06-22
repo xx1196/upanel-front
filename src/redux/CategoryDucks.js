@@ -53,7 +53,7 @@ export default function categoryReducer(state = initialData, action) {
         case FETCHING_ALL_CATEGORIES:
             return {...state, fetching: true}
         case FETCHING_ALL_CATEGORIES_SUCCESS:
-            return {...state, fetching: false, data: action.payload.data}
+            return {...state, fetching: false, data: action.payload}
         case FETCHING_ALL_CATEGORIES_ERROR:
             return {...state, fetching: false, error: action.payload}
 
@@ -132,7 +132,7 @@ export const fetchAllCategoriesAction = () => (dispatch, getState) => {
     });
 
     let query = gql`
-        query allCategories() {
+        query allCategories {
             allCategories{
                 id
                 name
@@ -151,7 +151,7 @@ export const fetchAllCategoriesAction = () => (dispatch, getState) => {
         }
     ).catch(error => {
         dispatch({
-            type: FETCHING_CATEGORIES_ERROR,
+            type: FETCHING_ALL_CATEGORIES_ERROR,
             payload: error
         });
     });
