@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Redirect, Route, Switch, useLocation, withRouter} from "react-router-dom";
+import {Redirect, Switch, useLocation, withRouter} from "react-router-dom";
 // @material-ui/core components
 import {makeStyles} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -17,10 +17,11 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import NavbarDropdown from "components/Dropdowns/NavbarDropdown.js";
 
-import {routes,routesHidden} from "routes.js";
+import {routes, routesHidden} from "routes.js";
 
 import componentStyles from "assets/theme/layouts/admin.js";
 import {connect} from "react-redux";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -50,7 +51,7 @@ const Admin = (props) => {
         return routes.map((prop, key) => {
             if (prop.layout === "/admin") {
                 return (
-                    <Route
+                    <PrivateRoute
                         exact
                         path={prop.layout + prop.path}
                         component={prop.component}
@@ -65,7 +66,7 @@ const Admin = (props) => {
     const getRoutesHidden = (routes) => {
         return routes.map((prop, key) => {
             return (
-                <Route
+                <PrivateRoute
                     exact
                     path={prop.path}
                     component={prop.component}

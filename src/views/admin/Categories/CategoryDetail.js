@@ -118,17 +118,11 @@ const componentStyles = (theme) => ({
 
 const useStyles = makeStyles(componentStyles);
 
-const Category = ({access_token, fetching, history, category}) => {
+const Category = ({fetching, category}) => {
     let {id} = useParams();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-
-    useEffect(() => {
-        if (!access_token) {
-            history.push('/admin');
-        }
-    }, [access_token]);
 
     const dispatch = useDispatch();
 
@@ -276,7 +270,6 @@ function mapState(state) {
     return {
         category: state.categories.category,
         fetching: state.categories.fetching,
-        access_token: state.user.accessToken,
     }
 }
 

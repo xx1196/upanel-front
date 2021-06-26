@@ -159,12 +159,6 @@ const Category = (props) => {
     const [categories, setCategories] = useState([]);
     const [pagination, setPagination] = useState({});
 
-    useEffect(() => {
-        if (!props.access_token) {
-            props.history.push('/admin');
-        }
-    }, [props.access_token]);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -347,7 +341,6 @@ function mapState(state) {
     return {
         categories: state.categories,
         fetching: state.categories.fetching,
-        access_token: state.user.accessToken,
     }
 }
 
