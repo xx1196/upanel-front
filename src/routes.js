@@ -20,6 +20,10 @@ import AllInboxIcon from '@material-ui/icons/AllInbox';
 import VpnKey from "@material-ui/icons/VpnKey";
 import Category from "./views/admin/Categories/Category";
 import CategoryDetail from "./views/admin/Categories/CategoryDetail";
+import {AddShoppingCart} from "@material-ui/icons";
+import ProductDetail from "./views/admin/Products/ProductDetail";
+import Product from "./views/admin/Products/Product";
+import CreateProduct from "./views/admin/Products/CreateProduct";
 
 var routes = [
     {
@@ -42,6 +46,14 @@ var routes = [
         icon: AllInboxIcon,
         iconColor: "Primary",
         component: Category,
+        layout: "/admin",
+    },
+    {
+        path: "/products",
+        name: "Productos",
+        icon: AddShoppingCart,
+        iconColor: "Primary",
+        component: Product,
         layout: "/admin",
     },
     {
@@ -121,6 +133,14 @@ var routesHidden = [
     {
         path: "/admin/categories/:id",
         component: CategoryDetail,
+    },
+    {
+        path: "/admin/products/create",
+        component: CreateProduct,
+    },
+    {
+        path: "/admin/products/:id",
+        component: ProductDetail,
     },
 ];
 

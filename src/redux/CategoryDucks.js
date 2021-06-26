@@ -25,6 +25,10 @@ const FETCHING_CATEGORIES = "FETCHING_CATEGORIES";
 const FETCHING_CATEGORIES_SUCCESS = "FETCHING_CATEGORIES_SUCCESS";
 const FETCHING_CATEGORIES_ERROR = "FETCHING_CATEGORIES_ERROR";
 
+const FETCHING_ALL_CATEGORIES = "FETCHING_ALL_CATEGORIES";
+const FETCHING_ALL_CATEGORIES_SUCCESS = "FETCHING_ALL_CATEGORIES_SUCCESS";
+const FETCHING_ALL_CATEGORIES_ERROR = "FETCHING_ALL_CATEGORIES_ERROR";
+
 const FETCHING_CATEGORY = "FETCHING_CATEGORY";
 const FETCHING_CATEGORY_SUCCESS = "FETCHING_CATEGORY_SUCCESS";
 const FETCHING_CATEGORY_ERROR = "FETCHING_CATEGORY_ERROR";
@@ -44,6 +48,13 @@ export default function categoryReducer(state = initialData, action) {
         case FETCHING_CATEGORIES_SUCCESS:
             return {...state, fetching: false, data: action.payload.data, pagination: action.payload.paginatorInfo}
         case FETCHING_CATEGORIES_ERROR:
+            return {...state, fetching: false, error: action.payload}
+
+        case FETCHING_ALL_CATEGORIES:
+            return {...state, fetching: true}
+        case FETCHING_ALL_CATEGORIES_SUCCESS:
+            return {...state, fetching: false, data: action.payload}
+        case FETCHING_ALL_CATEGORIES_ERROR:
             return {...state, fetching: false, error: action.payload}
 
         case FETCHING_CATEGORY:
@@ -110,6 +121,37 @@ export const fetchCategoriesAction = (page = 1) => (dispatch, getState) => {
     ).catch(error => {
         dispatch({
             type: FETCHING_CATEGORIES_ERROR,
+            payload: error
+        });
+    });
+}
+
+export const fetchAllCategoriesAction = () => (dispatch, getState) => {
+    dispatch({
+        type: FETCHING_ALL_CATEGORIES
+    });
+
+    let query = gql`
+        query allCategories {
+            allCategories{
+                id
+                name
+            }
+        }
+    `;
+    apolloClient.query({
+        query,
+        fetchPolicy: 'network-only'
+    }).then(({data}) => {
+
+            dispatch({
+                type: FETCHING_ALL_CATEGORIES_SUCCESS,
+                payload: data.allCategories
+            });
+        }
+    ).catch(error => {
+        dispatch({
+            type: FETCHING_ALL_CATEGORIES_ERROR,
             payload: error
         });
     });
