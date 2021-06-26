@@ -27,6 +27,7 @@ import LoaderOverlay from "../../../components/Loaders/loaderOverlay";
 import boxShadows from "../../../assets/theme/box-shadow";
 import {deleteProductAction, fetchProductsAction} from "../../../redux/ProductDucks";
 import {AddBox} from "@material-ui/icons";
+import NumberFormatter from "../../../utils/NumberFormatter";
 
 const componentStyles = (theme) => ({
     cardRoot: {
@@ -323,7 +324,7 @@ const Category = (props) => {
                                                 {product.description.substring(0, 25) + '...'}
                                             </TableCell>
                                             <TableCell classes={{root: classes.tableCellRoot}}>
-                                                {product.price}
+                                                <NumberFormatter price={product.price}/>
                                             </TableCell>
                                             <TableCell
                                                 classes={{root: classes.tableCellRoot}}
