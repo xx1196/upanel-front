@@ -40,9 +40,9 @@ const UPDATING_PRODUCT = "UPDATING_PRODUCT";
 const UPDATING_PRODUCT_SUCCESS = "UPDATING_PRODUCT_SUCCESS";
 const UPDATING_PRODUCT_ERROR = "UPDATING_PRODUCT_ERROR";
 
-const DELETING_CATEGORY = "DELETING_CATEGORY";
-const DELETING_CATEGORY_SUCCESS = "DELETING_CATEGORY_SUCCESS";
-const DELETING_CATEGORY_ERROR = "DELETING_CATEGORY_ERROR";
+const DELETING_PRODUCT = "DELETING_PRODUCT";
+const DELETING_PRODUCT_SUCCESS = "DELETING_PRODUCT_SUCCESS";
+const DELETING_PRODUCT_ERROR = "DELETING_PRODUCT_ERROR";
 
 export default function productReducer(state = initialData, action) {
     switch (action.type) {
@@ -79,11 +79,11 @@ export default function productReducer(state = initialData, action) {
         case UPDATING_PRODUCT_ERROR:
             return {...state, fetching: false, error: action.payload}
 
-        case DELETING_CATEGORY:
+        case DELETING_PRODUCT:
             return {...state, fetching: true}
-        case DELETING_CATEGORY_SUCCESS:
+        case DELETING_PRODUCT_SUCCESS:
             return {...state, fetching: false, data: []}
-        case DELETING_CATEGORY_ERROR:
+        case DELETING_PRODUCT_ERROR:
             return {...state, fetching: false, error: action.payload}
 
         default:
@@ -182,7 +182,6 @@ export const fetchProductAction = (id) => (dispatch, getState) => {
 }
 
 export const createProductAction = (name, code, description, price, categories) => (dispatch, getState) => {
-    debugger;
     categories = categories.map(({value: id}) => {
         return id;
     });
@@ -307,12 +306,12 @@ export const updateProductAction = (id, name, code, description, price, categori
 
 export const deleteProductAction = (id) => (dispatch, getState) => {
     dispatch({
-        type: DELETING_CATEGORY
+        type: DELETING_PRODUCT
     });
 
     let query = gql`
         query deleteProduct($id: ID!) {
-            deleteCategory(id: $id) {
+            deleteProduct(id: $id) {
                 name
             }
         }
@@ -324,13 +323,13 @@ export const deleteProductAction = (id) => (dispatch, getState) => {
         },
     }).then(({data}) => {
             dispatch({
-                type: DELETING_CATEGORY_SUCCESS,
+                type: DELETING_PRODUCT_SUCCESS,
                 payload: data
             });
         }
     ).catch(error => {
         dispatch({
-            type: DELETING_CATEGORY_ERROR,
+            type: DELETING_PRODUCT_ERROR,
             payload: error
         });
     });
