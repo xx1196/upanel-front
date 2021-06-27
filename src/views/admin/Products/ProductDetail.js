@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useParams, withRouter} from "react-router-dom";
+import {useParams} from "react-router-dom";
 // @material-ui/core components
 // core components
 import {connect, useDispatch} from "react-redux";
@@ -29,5 +29,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(ProductDetail));
+export default connect(mapState)(ProductDetail);
 

@@ -21,7 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // core components
 import Header from "components/Headers/Header.js";
 
-import {withRouter} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {connect, useDispatch} from "react-redux";
 import LoaderOverlay from "../../../components/Loaders/loaderOverlay";
 import boxShadows from "../../../assets/theme/box-shadow";
@@ -161,6 +161,8 @@ const Product = (props) => {
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
 
+    const history = useHistory();
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -179,7 +181,7 @@ const Product = (props) => {
     const classes = useStyles();
 
     const handleOnClickEdit = (category) => {
-        props.history.push(`/admin/products/${category.id}`)
+        history.push(`/admin/products/${category.id}`)
     }
 
     const handleOnClickDelete = (category) => {
@@ -213,7 +215,7 @@ const Product = (props) => {
                                 color="inherit"
                                 className={classes.button}
                                 startIcon={<AddBox/>}
-                                onClick={() => props.history.push('/admin/products/create')}
+                                onClick={() => history.push('/admin/products/create')}
                             >
                                 Crear nuevo producto
                             </Button>
@@ -380,5 +382,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(Product));
+export default connect(mapState)(Product);
 

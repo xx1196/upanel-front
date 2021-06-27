@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams, withRouter} from "react-router-dom";
+import {useParams} from "react-router-dom";
 // @material-ui/core components
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -273,5 +273,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(Category));
+export default connect(mapState)(Category);
 

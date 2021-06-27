@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import {withRouter} from "react-router-dom";
 // core components
 import {connect, useDispatch} from "react-redux";
 import FormProduct from "./form/FormProduct";
@@ -25,5 +24,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(CreateProduct));
+export default connect(mapState)(CreateProduct);
 

@@ -21,7 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // core components
 import Header from "components/Headers/Header.js";
 
-import {withRouter} from "react-router-dom";
+import {useHistory} from 'react-router-dom'
 import {connect, useDispatch} from "react-redux";
 import {deleteCategoryAction, fetchCategoriesAction} from "../../../redux/CategoryDucks";
 import LoaderOverlay from "../../../components/Loaders/loaderOverlay";
@@ -159,6 +159,8 @@ const Category = (props) => {
     const [categories, setCategories] = useState([]);
     const [pagination, setPagination] = useState({});
 
+    const history = useHistory();
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -177,7 +179,7 @@ const Category = (props) => {
     const classes = useStyles();
 
     const handleOnClickEdit = (category) => {
-        props.history.push(`/admin/categories/${category.id}`)
+        history.push(`/admin/categories/${category.id}`)
     }
 
     const handleOnClickDelete = (category) => {
@@ -344,5 +346,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(Category));
+export default connect(mapState)(Category);
 
