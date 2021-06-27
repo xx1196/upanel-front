@@ -6,7 +6,7 @@ import {connect, useDispatch} from "react-redux";
 import {fetchProductAction} from "../../../redux/ProductDucks";
 import FormProduct from "./form/FormProduct";
 
-const Category = ({fetching, product, all_categories}) => {
+const ProductDetail = ({fetching, product, all_categories}) => {
     let {id} = useParams();
 
     const dispatch = useDispatch();
@@ -29,5 +29,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(Category));
+export default withRouter(connect(mapState)(ProductDetail));
 

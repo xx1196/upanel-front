@@ -156,7 +156,7 @@ const componentStyles = (theme) => ({
 
 const useStyles = makeStyles(componentStyles);
 
-const Category = (props) => {
+const Product = (props) => {
     const [page, setPage] = useState(1);
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
@@ -380,5 +380,5 @@ function mapState(state) {
     }
 }
 
-export default withRouter(connect(mapState)(Category));
+export default withRouter(connect(mapState)(Product));
 
