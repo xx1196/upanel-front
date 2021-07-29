@@ -20,26 +20,22 @@ import NavbarDropdown from "components/Dropdowns/NavbarDropdown.js";
 import {routes, routesHidden} from "routes.js";
 
 import componentStyles from "assets/theme/layouts/admin.js";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import PrivateRoute from "../utils/PrivateRoute";
+import {getMeAction} from "../redux/UserDucks";
 
 const useStyles = makeStyles(componentStyles);
 
 const Admin = (props) => {
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        if (!props.access_token) {
-            props.history.push('/auth');
-        }
+        dispatch(getMeAction());
     }, [props.access_token]);
 
     const classes = useStyles();
     const location = useLocation();
 
-    React.useEffect(() => {
-        if (!localStorage.getItem('access_token')) {
-            props.history.push('/auth');
-        }
-    }, []);
 
     React.useEffect(() => {
         document.documentElement.scrollTop = 0;
