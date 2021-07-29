@@ -19,8 +19,9 @@ import Lock from "@material-ui/icons/Lock";
 // core components
 import componentStyles from "assets/theme/views/auth/login.js";
 import {connect, useDispatch} from "react-redux";
-import {loginAction} from "../../redux/UserDucks";
+import {loginAction, socialLoginAction} from "../../redux/UserDucks";
 import {withRouter} from "react-router-dom";
+import {GoogleLogin} from 'react-google-login';
 
 const useStyles = makeStyles(componentStyles);
 
@@ -36,6 +37,9 @@ function Login(props) {
     const [password, setPassword] = useState('');
     const classes = useStyles();
     const theme = useTheme();
+    const responseGoogle = ({accessToken}) => {
+        dispatch(socialLoginAction('google', accessToken))
+    }
     return (
         <>
             <Grid item xs={12} lg={5} md={7}>
@@ -82,7 +86,7 @@ function Login(props) {
                                         Github
                                     </Box>
                                 </Box>
-                                <Button
+                                {/*<Button
                                     variant="contained"
                                     classes={{root: classes.buttonRoot}}
                                 >
@@ -100,7 +104,14 @@ function Login(props) {
                                     <Box component="span" marginLeft=".75rem">
                                         Google
                                     </Box>
-                                </Button>
+                                </Button>*/}
+                                <GoogleLogin
+                                    clientId={process.env.REACT_APP_API_GOOGLE_LOGIN}
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
                             </Box>
                         }
                     ></CardHeader>
