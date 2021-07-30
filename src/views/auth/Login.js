@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 // @material-ui/core components
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -22,24 +22,39 @@ import {connect, useDispatch} from "react-redux";
 import {loginAction, socialLoginAction} from "../../redux/UserDucks";
 import {withRouter} from "react-router-dom";
 import {GoogleLogin} from 'react-google-login';
+import {useForm} from "../../hooks/useForm";
+import {useValidationErrorsForm} from "../../hooks/useValidationErrorsForm";
 
 const useStyles = makeStyles(componentStyles);
 
-function Login(props) {
+function Login({access_token, history, user}) {
     useEffect(() => {
-        if (props.access_token) {
-            props.history.push('/admin');
+        if (access_token) {
+            history.push('/admin');
         }
-    }, [props.access_token]);
+    }, [access_token]);
 
+    const {formData, handleInputChange, handleSubmit} = useForm(
+        {
+            email: "",
+            password: "",
+        },
+        () => dispatch(loginAction(email, password))
+    );
+
+
+    const {email, password} = formData;
+
+    const test =useValidationErrorsForm(user);
+debugger;
     const dispatch = useDispatch();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const classes = useStyles();
     const theme = useTheme();
+
     const responseGoogle = ({accessToken}) => {
         dispatch(socialLoginAction('google', accessToken))
     }
+
     return (
         <>
             <Grid item xs={12} lg={5} md={7}>
@@ -134,7 +149,8 @@ function Login(props) {
                             marginBottom="1rem!important"
                         >
                             <FilledInput
-                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
+                                onChange={handleInputChange}
                                 autoComplete="off"
                                 type="email"
                                 placeholder="Email"
@@ -152,7 +168,8 @@ function Login(props) {
                             marginBottom="1rem!important"
                         >
                             <FilledInput
-                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
+                                onChange={handleInputChange}
                                 autoComplete="off"
                                 type="password"
                                 placeholder="Password"
@@ -174,7 +191,7 @@ function Login(props) {
                             }}
                         />
                         <Box textAlign="center" marginTop="1.5rem" marginBottom="1.5rem">
-                            <Button onClick={() => dispatch(loginAction(email, password))} color="primary"
+                            <Button onClick={handleSubmit} color="primary"
                                     variant="contained">
                                 Sign in
                             </Button>
@@ -209,6 +226,7 @@ function Login(props) {
 function mapState(state) {
     return {
         access_token: state.user.accessToken,
+        user: state.user,
     }
 }
 
