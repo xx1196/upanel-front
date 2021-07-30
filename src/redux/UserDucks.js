@@ -9,7 +9,8 @@ const initialData = {
         email: "",
         avatar: ""
     },
-    users: []
+    users: [],
+    error: {}
 }
 
 const apolloClient = exportApolloClient();
